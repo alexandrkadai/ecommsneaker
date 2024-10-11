@@ -1,4 +1,7 @@
+'use client';
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const links = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -8,10 +11,18 @@ const links = [
 ];
 
 const DashboardNavigation = () => {
+  const pathName = usePathname();
   return (
     <>
       {links.map((link) => (
-        <Link key={link.href} href={link.href}>
+        <Link
+          key={link.href}
+          href={link.href}
+          className={cn(
+            link.href === pathName
+              ? 'text-black font-bold'
+              : 'text-muted-foreground hover:text-foreground',
+          )}>
           {link.name}
         </Link>
       ))}
