@@ -1,7 +1,7 @@
 'use client';
 import { UploadDropzone } from '@/app/lib/uploadthing';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 
@@ -64,12 +63,24 @@ const ProductCreateRoute = () => {
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex fle-col gap-3">
-              <Label>Image uploader</Label>
-              <UploadDropzone endpoint="imageUploader" />
+            <div className="flex flex-col gap-3">
+              <Label>Images</Label>
+              <UploadDropzone
+              className='ut-button:bg-purple-600'
+                endpoint="imageUploader"
+                onClientUploadComplete={(res) => {
+                  alert('Upload Finished');
+                }}
+                onUploadError={() => {
+                  alert('Something Go Wrong');
+                }}
+              />
             </div>
           </div>
         </CardContent>
+        <CardFooter>
+                <Button>Create Product</Button>
+        </CardFooter>
       </Card>
     </form>
   );
