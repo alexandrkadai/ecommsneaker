@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, XIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
 import { useForm } from '@conform-to/react';
@@ -29,6 +29,8 @@ import { parseWithZod } from '@conform-to/zod';
 import { productSchema } from '@/app/lib/zodSchemas';
 import { useState } from 'react';
 import Image from 'next/image';
+import { categories } from '@/app/lib/categories';
+import { SubmitButton } from '@/app/components/SubmitButton';
 
 const ProductCreateRoute = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -42,6 +44,10 @@ const ProductCreateRoute = () => {
     shouldValidate: 'onBlur',
     shouldRevalidate: 'onInput',
   });
+
+  const handleDelete = (index: number) => {
+    setImages(images.filter((_, i) => i !== index));
+  };
 
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
@@ -119,8 +125,36 @@ const ProductCreateRoute = () => {
               </Select>
               <p className="text-red-500">{fields.status.errors}</p>
             </div>
+
+            <div className="flex flex-col gap-3">
+              <Label>Category</Label>
+              <Select
+                key={fields.category.key}
+                name={fields.category.name}
+                defaultValue={fields.category.initialValue}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Category ... " />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((item) => (
+                    <SelectItem key={item.id} value={item.name}>
+                      {item.title}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-red-500">{fields.category.errors}</p>
+            </div>
+
             <div className="flex flex-col gap-3">
               <Label>Images</Label>
+              <input
+                type="hidden"
+                value={images}
+                key={fields.images.key}
+                name={fields.images.name}
+                defaultValue={fields.images.initialValue as any}
+              />
               {images.length > 0 ? (
                 <div className="flex gap-5">
                   {images.map((image, index) => (
@@ -132,6 +166,12 @@ const ProductCreateRoute = () => {
                         alt="uploaded image"
                         className="w-full h-full rounded-lg border"
                       />
+                      <button
+                        onClick={() => handleDelete(index)}
+                        type="button"
+                        className="absolute -top-3 -right-3 bg-red-500 p-2 rounded-lg text-white">
+                        <XIcon className="w-3 h-3" />
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -147,11 +187,12 @@ const ProductCreateRoute = () => {
                   }}
                 />
               )}
+              <p className="text-red-500">{fields.images.errors}</p>
             </div>
           </div>
         </CardContent>
         <CardFooter>
-          <Button>Create Product</Button>
+        <SubmitButton />
         </CardFooter>
       </Card>
     </form>
