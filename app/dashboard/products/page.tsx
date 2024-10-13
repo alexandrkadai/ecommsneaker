@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { MoreHorizontal, PlusCircleIcon, UserIcon } from 'lucide-react';
+import { MoreHorizontal, PlusCircleIcon} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -88,7 +88,9 @@ const Products = async () => {
                         <DropdownMenuItem asChild>
                           <Link href={`/dashboard/products/${item.id}`}>Edit</Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link href={`/dashboard/products/${item.id}/delete`}>Delete</Link>
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>

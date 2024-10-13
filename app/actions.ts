@@ -12,28 +12,65 @@ export async function createProduct(prevState: unknown, formData: FormData) {
     return redirect('/');
   }
 
-  const submisson = parseWithZod(formData, {
+  const submission = parseWithZod(formData, {
     schema: productSchema,
   });
 
-  if (submisson.status !== 'success') {
-    return submisson.reply();
+  if (submission.status !== 'success') {
+    return submission.reply();
   }
 
-  const flattenUrls = submisson.value.images.flatMap((urlString) =>
+  const flattenUrls = submission.value.images.flatMap((urlString) =>
     urlString.split(',').map((url) => url.trim()),
   );
   await prisma.product.create({
     data: {
-      name: submisson.value.name,
-      description: submisson.value.description,
-      status: submisson.value.status,
-      price: submisson.value.price,
+      name: submission.value.name,
+      description: submission.value.description,
+      category: submission.value.category,
+      price: submission.value.price,
+      isFeatured: submission.value.isFeatured,
+      status: submission.value.status,
       images: flattenUrls,
-      category: submisson.value.category,
-      isFeatured: submisson.value.isFeatured,
     },
   });
 
+  redirect('/dashboard/products');
+}
+
+export async function editProduct(prevState: any, formData: FormData) {
+  
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  if (!user || user.email !== 'kaldikonly@gmail.com') {
+    return redirect('/');
+  }
+
+  const submission = parseWithZod(formData, {
+    schema: productSchema,
+  });
+  if (submission.status !== 'success') {
+    return submission.reply;
+  }
+  const productId = formData.get('productId') as string;
+
+  const flattenUrls = submission.value.images.flatMap((urlString) =>
+    urlString.split(',').map((url) => url.trim()),
+  );
+
+  await prisma.product.update({
+    where: {
+      id: productId,
+    },
+    data: {
+      name: submission.value.name,
+      description: submission.value.description,
+      category: submission.value.category,
+      price: submission.value.price,
+      isFeatured: submission.value.isFeatured,
+      status: submission.value.status,
+      images: flattenUrls,
+    },
+  });
   redirect('/dashboard/products');
 }

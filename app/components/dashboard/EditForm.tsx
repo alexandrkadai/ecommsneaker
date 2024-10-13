@@ -30,7 +30,7 @@ import { useState } from 'react';
 import { useFormState } from 'react-dom';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
-import { createProduct } from '@/app/actions';
+import { editProduct } from '@/app/actions';
 import { productSchema } from '@/app/lib/zodSchemas';
 import { type $Enums } from '@prisma/client';
 
@@ -44,15 +44,14 @@ interface iAppProps {
     category: $Enums.Category;
     isFeatured: boolean;
     id: string;
-    
   };
 }
 
-export function EditForm({data}:iAppProps) {
+export function EditForm({ data }: iAppProps) {
   const [images, setImages] = useState<string[]>(data.images);
-  const [lastResult, action] = useFormState(createProduct, undefined);
+  const [lastResult, action] = useFormState(editProduct, undefined);
   const [form, fields] = useForm({
-    lastResult,
+    lastResult: lastResult as any,
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: productSchema });
     },
@@ -67,13 +66,14 @@ export function EditForm({data}:iAppProps) {
 
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
+      <input type="hidden" name="productId" value={data.id} />
       <div className="flex items-center gap-4">
         <Button variant="outline" asChild>
           <Link href="/dashboard/products">
             <ChevronLeft size={24} />
           </Link>
         </Button>
-        <h1 className="text-xl font-semibold tracking-tight">New Product</h1>
+        <h1 className="text-xl font-semibold tracking-tight">Edit Product</h1>
       </div>
       <Card className="mt-5">
         <CardHeader>
@@ -126,10 +126,7 @@ export function EditForm({data}:iAppProps) {
             </div>
             <div className="flex flex-col gap-3">
               <Label>Status</Label>
-              <Select
-                key={fields.status.key}
-                name={fields.status.name}
-                defaultValue={data.status}>
+              <Select key={fields.status.key} name={fields.status.name} defaultValue={data.status}>
                 <SelectTrigger>
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
@@ -208,7 +205,7 @@ export function EditForm({data}:iAppProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <SubmitButton />
+          <SubmitButton text="Update Product"/>
         </CardFooter>
       </Card>
     </form>
