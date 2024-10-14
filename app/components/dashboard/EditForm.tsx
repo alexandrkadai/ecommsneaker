@@ -120,7 +120,7 @@ export function EditForm({ data }: iAppProps) {
               <Switch
                 key={fields.isFeatured.key}
                 name={fields.isFeatured.name}
-                checked={data.isFeatured}
+                defaultChecked={data.isFeatured}
               />
               <p className="text-red-500">{fields.isFeatured.errors}</p>
             </div>
@@ -205,7 +205,7 @@ export function EditForm({ data }: iAppProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <SubmitButton text="Update Product"/>
+          <SubmitButton variant="default" text="Update Product"/>
         </CardFooter>
       </Card>
     </form>
