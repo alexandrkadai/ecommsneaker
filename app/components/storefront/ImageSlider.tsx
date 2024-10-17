@@ -1,5 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -43,7 +44,7 @@ const ImageSlider = ({ images }: iAppProps) => {
         <div className="grid grid-cols-5 gap-4">
           {images.map((item, index) => (
             <div
-              className="rounded-lg cursor-pointer"
+              className={cn(index === mainImageIndex ? "border-2 border-primary" : "border border-gray-200", "rounded-lg cursor-pointer overflow-hidden")}
               key={index}
               onClick={() => handleImageClick(index)} >
               <Image

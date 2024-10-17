@@ -25,7 +25,7 @@ async function FeaturedProducts() {
   const data = await getData();
   return (
     <>
-      <h2 className="text-4xl uppercase font-bold">FeaturedProducts</h2>
+      <h2 className="text-4xl uppercase font-bold">Featured Products</h2>
       <div className="mt-5 sm:grid sm:grid-cols-1 md:grid-cols-3 gap-5">
         {data.map((item) => (
         <FeaturedCard key={item.id} item={item}/>
