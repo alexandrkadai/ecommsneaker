@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation';
 import { parseWithZod } from '@conform-to/zod';
 import { bannerSchema, productSchema } from './lib/zodSchemas';
 import prisma from './lib/db';
+import { redis } from './lib/redis';
+import { TCart } from './lib/interfaces';
 
 export async function createProduct(prevState: unknown, formData: FormData) {
   const { getUser } = getKindeServerSession();
@@ -111,7 +113,7 @@ export async function createBanner(prevState: any, formData: FormData) {
   redirect('/dashboard/banner');
 }
 
-export async function deleteBanner(formData: FormData){
+export async function deleteBanner(formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   if (!user || user.email !== 'kaldikonly@gmail.com') {
@@ -119,10 +121,73 @@ export async function deleteBanner(formData: FormData){
   }
 
   await prisma.banner.delete({
-    where:{
-      id: formData.get("bannerId") as string
-    }
-  })
+    where: {
+      id: formData.get('bannerId') as string,
+    },
+  });
 
   redirect('/dashboard/banner');
+}
+
+export async function addItem(productId: string) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  if (!user) {
+    console.log('you`re not logged in');
+  }
+
+  let cart: TCart | null = await redis.get(`cart-${user.id}`);
+
+  const selectedProduct = await prisma.product.findUnique({
+    where: {
+      id: productId,
+    },
+    select: {
+      name: true,
+      id: true,
+      price: true,
+      images: true,
+    },
+  });
+
+  if (!selectedProduct) {
+    throw new Error('There is no such Product, id doesnt match');
+  }
+
+  let myCart = {} as TCart;
+
+  if (!cart || !cart.items) {
+    myCart = {
+      userId: user.id,
+      items: [
+        {
+          name: selectedProduct.name,
+          price: selectedProduct.price,
+          id: selectedProduct.id,
+          imageString: selectedProduct.images[0],
+          quantity: 1,
+        },
+      ],
+    };
+  } else {
+    let itemFound = false;
+    myCart.items = cart.items.map((item) => {
+      if (item.id === productId) {
+        itemFound = true;
+        item.quantity += 1;
+      }
+      return item;
+    });
+    if (!itemFound) {
+      myCart.items.push({
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        price: selectedProduct.price,
+        quantity: 1,
+        imageString: selectedProduct.images[0],
+      });
+    }
+  }
+  
+  await redis.set(`cart-${user.id}`, myCart);
 }
