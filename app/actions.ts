@@ -242,6 +242,9 @@ export async function checkOut() {
       line_items: lineItems,
       success_url: 'http://localhost:3000/payment/success',
       cancel_url: 'http://localhost:3000/payment/cancel',
+      metadata: {
+        userId: user.id,
+      },
     });
 
     return redirect(session.url as string);

@@ -1,3 +1,4 @@
+import prisma from '@/app/lib/db';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
@@ -8,7 +9,30 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-const Orders = () => {
+async function getData() {
+  const data = await prisma.order.findMany({
+    select: {
+      amount: true,
+      createdAt: true,
+      id: true,
+      status: true,
+      User: {
+        select: {
+          firstName: true,
+          email: true,
+          profileImage: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+  return data;
+}
+const Orders = async () => {
+  const data = await getData();
+
   return (
     <Card>
       <CardHeader className="px-7">
@@ -27,16 +51,18 @@ const Orders = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell>
-                <p className="font-medium">Alexander Chinnoto</p>
-                <p className="hidden md:flex text-muted-foreground">test@test.com</p>
-              </TableCell>
-              <TableCell>Sale</TableCell>
-              <TableCell>Successful</TableCell>
-              <TableCell>24.13.2024</TableCell>
-              <TableCell className='text-right'>$9999</TableCell>
-            </TableRow>
+            {data.map((item) => (
+              <TableRow>
+                <TableCell>
+                  <p className="font-medium">{item.User?.firstName}</p>
+                  <p className="hidden md:flex text-muted-foreground">{item.User?.email}</p>
+                </TableCell>
+                <TableCell>Order</TableCell>
+                <TableCell>{item.status}</TableCell>
+                <TableCell>{new Intl.DateTimeFormat('en-US').format(item.createdAt)}</TableCell>
+                <TableCell className="text-right">$ {item.amount/100}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </CardContent>

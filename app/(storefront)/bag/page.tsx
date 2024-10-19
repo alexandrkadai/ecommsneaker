@@ -1,5 +1,5 @@
 import { checkOut, deleteItem } from '@/app/actions';
-import { DeleteButton } from '@/app/components/SubmitButton';
+import { CheckOutButton, DeleteButton } from '@/app/components/SubmitButton';
 import { TCart } from '@/app/lib/interfaces';
 import { redis } from '@/app/lib/redis';
 import { Button } from '@/components/ui/button';
@@ -21,9 +21,10 @@ export default async function BagRoute() {
   cart?.items.forEach((item) => {
     totalPrice += item.price * item.quantity;
   });
+
   return (
     <div className="max-w-2xl mx-auto mt-10 min-h-[55vh] ">
-      {cart?.items.length === 0 ? (
+      {!cart || !cart.items ? (
         <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border-2 border-primary p-8 text-center mt-20">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
             <ShoppingBagIcon size={40} />
@@ -68,8 +69,8 @@ export default async function BagRoute() {
               <p>Subtotal</p>
               <p>${new Intl.NumberFormat('en-US').format(totalPrice)}</p>
             </div>
-            <form action={checkOut} className="">
-              <Button className="w-full mt-10"> Checkout</Button>
+            <form action={checkOut}>
+            <CheckOutButton />
             </form>
           </div>
         </div>

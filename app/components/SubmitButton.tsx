@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { Loader2, ShoppingBag } from 'lucide-react';
+import { CreditCard, Loader2, ShoppingBag } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 
 interface buttonProps {
@@ -39,7 +39,7 @@ export function ShoppingBagButton() {
   return (
     <>
       {pending ? (
-        <Button disabled size="lg" className="w-full mt-5">
+        <Button disabled size="lg" className="w-full mt-5 uppercase">
           <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Adding to Cart ...
         </Button>
       ) : (
@@ -62,6 +62,24 @@ export function DeleteButton({ className }: { className: string }) {
         </button>
       ) : (
         <button className={className}>Delete</button>
+      )}
+    </>
+  );
+}
+
+export function CheckOutButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <>
+      {pending ? (
+        <Button disabled size="lg" className="w-full mt-5 uppercase">
+          <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Processing Checkout...
+        </Button>
+      ) : (
+        <Button size="lg" className="w-full mt-5 uppercase">
+          <CreditCard className="mr-4 h-5 w-5 " /> ChekOut
+        </Button>
       )}
     </>
   );
