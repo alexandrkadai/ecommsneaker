@@ -6,6 +6,7 @@ import { bannerSchema, productSchema } from './lib/zodSchemas';
 import prisma from './lib/db';
 import { redis } from './lib/redis';
 import { TCart } from './lib/interfaces';
+import { revalidatePath } from 'next/cache';
 
 export async function createProduct(prevState: unknown, formData: FormData) {
   const { getUser } = getKindeServerSession();
@@ -132,8 +133,9 @@ export async function deleteBanner(formData: FormData) {
 export async function addItem(productId: string) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+
   if (!user) {
-    console.log('you`re not logged in');
+    redirect('/');
   }
 
   let cart: TCart | null = await redis.get(`cart-${user.id}`);
@@ -188,6 +190,25 @@ export async function addItem(productId: string) {
       });
     }
   }
-  
+
   await redis.set(`cart-${user.id}`, myCart);
+  revalidatePath('/', 'layout');
+}
+
+export async function deleteItem(formData: FormData){
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  let productId = formData.get('productId');
+  let cart: TCart | null = await redis.get(`cart-${user.id}`);
+
+  if(cart && cart.items){
+    const updateCart:TCart = {
+      userId: user.id,
+      items: cart.items.filter((item) => item.id !== productId ),
+    }
+    await redis.set(`cart-${user.id}`, updateCart);
+
+  }
+  revalidatePath('/', 'layout');
 }

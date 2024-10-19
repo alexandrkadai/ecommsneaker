@@ -6,6 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import Link from 'next/link';
 interface iAppProps {
@@ -56,3 +57,16 @@ function FeaturedCard({ item }: iAppProps) {
 }
 
 export default FeaturedCard;
+
+export function LoadingFeatureCard(){
+    return(
+        <div className="flex flex-col">
+            <Skeleton className='w-full h-[320px]'/>
+            <div className="flex flex-col mt-2 gap-y-2">
+                <Skeleton className='h-4 w-full'/>
+                <Skeleton className='h-6 w-full'/>
+            </div>
+            <Skeleton className='w-full h-10 mt-5' />
+        </div>
+    )
+}
