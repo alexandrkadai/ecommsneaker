@@ -1,4 +1,4 @@
-import { deleteItem } from '@/app/actions';
+import { checkOut, deleteItem } from '@/app/actions';
 import { DeleteButton } from '@/app/components/SubmitButton';
 import { TCart } from '@/app/lib/interfaces';
 import { redis } from '@/app/lib/redis';
@@ -29,7 +29,9 @@ export default async function BagRoute() {
             <ShoppingBagIcon size={40} />
           </div>
           <span className="mt-6 text-xl font-bold ">Your Cart is Empty </span>
-          <Link href="/products/all" className="mt-20 flex flex-row items-center justify-center gap-2 uppercase bg-primary text-white p-2 rounded-md transition-transform hover:scale-105">
+          <Link
+            href="/products/all"
+            className="mt-20 flex flex-row items-center justify-center gap-2 uppercase bg-primary text-white p-2 rounded-md transition-transform hover:scale-105">
             Go Shopping <ArrowRightCircle size={20} />
           </Link>
         </div>
@@ -66,7 +68,9 @@ export default async function BagRoute() {
               <p>Subtotal</p>
               <p>${new Intl.NumberFormat('en-US').format(totalPrice)}</p>
             </div>
-            <Button className="w-full mt-10"> Checkout</Button>
+            <form action={checkOut} className="">
+              <Button className="w-full mt-10"> Checkout</Button>
+            </form>
           </div>
         </div>
       )}
