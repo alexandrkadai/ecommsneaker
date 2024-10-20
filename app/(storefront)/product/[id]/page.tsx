@@ -3,8 +3,9 @@ import FeaturedProducts from '@/app/components/storefront/FeaturedProducts';
 import ImageSlider from '@/app/components/storefront/ImageSlider';
 import { ShoppingBagButton } from '@/app/components/SubmitButton';
 import prisma from '@/app/lib/db';
-import {  StarIcon } from 'lucide-react';
+import { StarIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { unstable_noStore as noStore } from 'next/cache';
 
 async function getData(productId: string) {
   const data = await prisma.product.findUnique({
@@ -26,6 +27,7 @@ async function getData(productId: string) {
 }
 
 async function ProductPage({ params }: { params: { id: string } }) {
+  noStore();
   const data = await getData(params.id);
 
   const addItemToShoppingCart = addItem.bind(null, data.id);
@@ -49,7 +51,7 @@ async function ProductPage({ params }: { params: { id: string } }) {
           <p className="text-base text-gray-700 mt-6">{data.description}</p>
 
           <form action={addItemToShoppingCart} className="">
-          <ShoppingBagButton />
+            <ShoppingBagButton />
           </form>
         </div>
       </div>

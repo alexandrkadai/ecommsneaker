@@ -3,8 +3,10 @@ import DashboardStats from '../components/dashboard/DashboardStats';
 import RecentSales from '../components/dashboard/RecentSales';
 import Chart from '../components/dashboard/Chart';
 import prisma from '../lib/db';
+import {unstable_noStore as noStore} from 'next/cache';
 
 async function getData() {
+  
   const now = new Date();
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(now.getDate() - 7);
@@ -31,6 +33,7 @@ async function getData() {
   return result;
 }
 const Dashboard = async () => {
+  noStore();
   const data = await getData();
 
   return (

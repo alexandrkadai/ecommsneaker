@@ -1,7 +1,7 @@
 import FeaturedCard from '@/app/components/storefront/FeaturedCard';
 import prisma from '@/app/lib/db';
 import { notFound } from 'next/navigation';
-
+import {unstable_noStore as noStore} from 'next/cache';
 async function getData(productcategory: string) {
   switch (productcategory) {
     case 'all': {
@@ -63,6 +63,7 @@ async function getData(productcategory: string) {
 }
 
 export default async function CategoryPage({ params }: { params: { name: string } }) {
+    noStore();
   const data = await getData(params.name);
 
   return (
