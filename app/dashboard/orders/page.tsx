@@ -52,7 +52,7 @@ const Orders = async () => {
           </TableHeader>
           <TableBody>
             {data.map((item) => (
-              <TableRow>
+              <TableRow key={item.id}>
                 <TableCell>
                   <p className="font-medium">{item.User?.firstName}</p>
                   <p className="hidden md:flex text-muted-foreground">{item.User?.email}</p>

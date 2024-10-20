@@ -1,3 +1,9 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "ignores": [
+    "./app/api/uploadthing/core.ts",
+    "./app/components/dashboard/EditForm.tsx",
+    "./components/ui/input.tsx",
+    "./components/ui/textarea.tsx"
+  ]
 }

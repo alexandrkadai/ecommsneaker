@@ -2,7 +2,6 @@ import { checkOut, deleteItem } from '@/app/actions';
 import { CheckOutButton, DeleteButton } from '@/app/components/SubmitButton';
 import { TCart } from '@/app/lib/interfaces';
 import { redis } from '@/app/lib/redis';
-import { Button } from '@/components/ui/button';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { ArrowRightCircle, ShoppingBagIcon } from 'lucide-react';
 import Image from 'next/image';

@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { XCircle, XIcon } from 'lucide-react';
+import { XCircle } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 

@@ -51,7 +51,7 @@ export function EditForm({ data }: iAppProps) {
   const [images, setImages] = useState<string[]>(data.images);
   const [lastResult, action] = useFormState(editProduct, undefined);
   const [form, fields] = useForm({
-    lastResult: lastResult as any,
+    lastResult : lastResult as any, 
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: productSchema });
     },
@@ -166,7 +166,7 @@ export function EditForm({ data }: iAppProps) {
                 value={images}
                 key={fields.images.key}
                 name={fields.images.name}
-                defaultValue={data.images as any}
+                defaultValue={data.images as string[]}
               />
               {images.length > 0 ? (
                 <div className="flex gap-5">

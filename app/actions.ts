@@ -43,7 +43,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
   redirect('/dashboard/products');
 }
 
-export async function editProduct(prevState: any, formData: FormData) {
+export async function editProduct(prevState: unknown, formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   if (!user || user.email !== 'kaldikonly@gmail.com') {
@@ -93,7 +93,7 @@ export async function deleteProduct(formData: FormData) {
   redirect('/dashboard/products');
 }
 
-export async function createBanner(prevState: any, formData: FormData) {
+export async function createBanner(prevState: unknown, formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   if (!user || user.email !== 'kaldikonly@gmail.com') {
@@ -140,7 +140,7 @@ export async function addItem(productId: string) {
     redirect('/');
   }
 
-  let cart: TCart | null = await redis.get(`cart-${user.id}`);
+  const cart: TCart | null = await redis.get(`cart-${user.id}`);
 
   const selectedProduct = await prisma.product.findUnique({
     where: {
@@ -201,8 +201,8 @@ export async function deleteItem(formData: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  let productId = formData.get('productId');
-  let cart: TCart | null = await redis.get(`cart-${user.id}`);
+  const productId = formData.get('productId');
+  const cart: TCart | null = await redis.get(`cart-${user.id}`);
 
   if (cart && cart.items) {
     const updateCart: TCart = {
@@ -222,7 +222,7 @@ export async function checkOut() {
     redirect('/');
   }
 
-  let cart: TCart | null = await redis.get(`cart-${user.id}`);
+  const cart: TCart | null = await redis.get(`cart-${user.id}`);
 
   if (cart && cart.items) {
     const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = cart.items.map((item) => ({

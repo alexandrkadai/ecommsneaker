@@ -70,7 +70,7 @@ export default async function CategoryPage({ params }: { params: { name: string 
       <h1 className="text-4xl font-bold tracking-tight my-5">{data.title}</h1>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
         {data.data.map((item) => (
-          <FeaturedCard item={item} />
+          <FeaturedCard item={item} key={item.id}/>
         ))}
       </div>
     </section>
