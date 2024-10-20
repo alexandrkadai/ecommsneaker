@@ -1,4 +1,3 @@
-/* eslint no-use-before-define: 0 */  
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { createUploadthing, type FileRouter } from 'uploadthing/next';
 import { UploadThingError } from 'uploadthing/server';
@@ -12,7 +11,7 @@ export const ourFileRouter = {
   // Define as many FileRoutes as you like, each with a unique routeSlug
   imageUploader: f({ image: { maxFileSize: '4MB', maxFileCount: 10 } })
     // Set permissions and file types for this FileRoute
-    .middleware(async ({ req }) => { // @ts-ignore
+    .middleware(async ({ req }) => { 
       const { getUser } = getKindeServerSession();
         const user = await getUser();
       // If you throw, the user will not be able to upload
@@ -32,7 +31,7 @@ export const ourFileRouter = {
     }),
     bannerImageUploader: f({ image: { maxFileSize: '4MB', maxFileCount: 1 } })
     // Set permissions and file types for this FileRoute
-    .middleware(async ({ req }) => { // @ts-ignore
+    .middleware(async ({ req }) => {
       const { getUser } = getKindeServerSession();
         const user = await getUser();
       // If you throw, the user will not be able to upload
