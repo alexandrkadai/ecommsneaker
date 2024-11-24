@@ -1,11 +1,13 @@
 'use client';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { CreditCard, Loader2, ShoppingBag } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 
 interface buttonProps {
   text: string;
   textPending: string;
+  className?: string;
   variant:
     | 'default'
     | 'destructive'
@@ -17,13 +19,18 @@ interface buttonProps {
     | undefined;
 }
 
-export function SubmitButton({ text, variant, textPending }: buttonProps) {
+export function SubmitButton({
+  text,
+  variant,
+  textPending,
+  className,
+}: buttonProps) {
   const { pending } = useFormStatus();
   return (
     <>
       {pending ? (
         <Button disabled variant={variant}>
-          <Loader2 className="mr-2 h-2 w-2 animate-spin" />
+          <Loader2 className={cn(className, 'mr-2 h-2 w-2 animate-spin')} />
           {textPending}
         </Button>
       ) : (
