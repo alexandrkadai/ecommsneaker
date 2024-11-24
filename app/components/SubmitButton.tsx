@@ -34,7 +34,7 @@ export function SubmitButton({
           {textPending}
         </Button>
       ) : (
-        <Button variant={variant} type="submit">
+        <Button variant={variant} type="submit" className={cn(className)}>
           {text}
         </Button>
       )}
