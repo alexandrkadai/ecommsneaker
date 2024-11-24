@@ -78,7 +78,7 @@ export default function CreateBannerRoute() {
                   alt="banner Image"
                   width={200}
                   height={200}
-                  className="w-[200px] h-[200px] object-cover border rounded-lg"
+                  className="h-[200px] w-[200px] rounded-lg border object-cover"
                 />
               ) : (
                 <UploadDropzone
@@ -95,7 +95,11 @@ export default function CreateBannerRoute() {
           </div>
         </CardContent>
         <CardFooter>
-          <SubmitButton variant="default" text="Create Banner" />
+          <SubmitButton
+            variant="default"
+            text="Create Banner"
+            textPending="Creating Banner"
+          />
         </CardFooter>
       </Card>
     </form>

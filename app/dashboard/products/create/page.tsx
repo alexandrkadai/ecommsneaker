@@ -35,7 +35,7 @@ import { SubmitButton } from '@/app/components/SubmitButton';
 const ProductCreateRoute = () => {
   const [images, setImages] = useState<string[]>([]);
   const [lastResult, action] = useFormState(createProduct, undefined);
-  
+
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
@@ -63,7 +63,9 @@ const ProductCreateRoute = () => {
       <Card className="mt-5">
         <CardHeader>
           <CardTitle>Products Details</CardTitle>
-          <CardDescription>In this form can create youe product</CardDescription>
+          <CardDescription>
+            In this form can create youe product
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-6">
@@ -114,7 +116,8 @@ const ProductCreateRoute = () => {
               <Select
                 key={fields.status.key}
                 name={fields.status.name}
-                defaultValue={fields.status.initialValue}>
+                defaultValue={fields.status.initialValue}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
@@ -132,7 +135,8 @@ const ProductCreateRoute = () => {
               <Select
                 key={fields.category.key}
                 name={fields.category.name}
-                defaultValue={fields.category.initialValue}>
+                defaultValue={fields.category.initialValue}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select Category ... " />
                 </SelectTrigger>
@@ -159,19 +163,20 @@ const ProductCreateRoute = () => {
               {images.length > 0 ? (
                 <div className="flex gap-5">
                   {images.map((image, index) => (
-                    <div key={index} className="relative w-[100px] h-[100px]">
+                    <div key={index} className="relative h-[100px] w-[100px]">
                       <Image
                         height={100}
                         width={100}
                         src={image}
                         alt="uploaded image"
-                        className="w-full h-full rounded-lg border"
+                        className="h-full w-full rounded-lg border"
                       />
                       <button
                         onClick={() => handleDelete(index)}
                         type="button"
-                        className="absolute -top-3 -right-3 bg-red-500 p-2 rounded-lg text-white">
-                        <XIcon className="w-3 h-3" />
+                        className="absolute -right-3 -top-3 rounded-lg bg-red-500 p-2 text-white"
+                      >
+                        <XIcon className="h-3 w-3" />
                       </button>
                     </div>
                   ))}
@@ -193,7 +198,11 @@ const ProductCreateRoute = () => {
           </div>
         </CardContent>
         <CardFooter>
-        <SubmitButton variant="default" text="Create Product" />
+          <SubmitButton
+            variant="default"
+            text="Create Product"
+            textPending="Creating Product"
+          />
         </CardFooter>
       </Card>
     </form>

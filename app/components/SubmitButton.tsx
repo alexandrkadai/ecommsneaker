@@ -42,7 +42,8 @@ export function DeleteButton({ className }: { className: string }) {
     <>
       {pending ? (
         <button disabled className={className}>
-          <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Deleting from Cart ...
+          <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Deleting from Cart
+          ...
         </button>
       ) : (
         <button className={className}>Delete</button>

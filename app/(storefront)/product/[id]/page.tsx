@@ -34,24 +34,28 @@ async function ProductPage({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start lg:gap-x-24 py-6">
+      <div className="grid grid-cols-1 items-start gap-6 py-6 md:grid-cols-2 lg:gap-x-24">
         <ImageSlider images={data.images} />
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-primary uppercase">
+          <h1 className="text-3xl font-extrabold uppercase tracking-tight text-primary">
             {data.name}
           </h1>
-          <p className="text-3xl mt-2 text-gray-900">${data.price}</p>
+          <p className="mt-2 text-3xl text-gray-900">${data.price}</p>
           <div className="mt-3 flex items-center gap-1">
-            <StarIcon size={24} className="text-yellow-500 fill-yellow-500" />
-            <StarIcon size={24} className="text-yellow-500 fill-yellow-500" />
-            <StarIcon size={24} className="text-yellow-500 fill-yellow-500" />
-            <StarIcon size={24} className="text-yellow-500 fill-yellow-500" />
-            <StarIcon size={24} className="text-yellow-500 fill-yellow-500" />
+            <StarIcon size={24} className="fill-yellow-500 text-yellow-500" />
+            <StarIcon size={24} className="fill-yellow-500 text-yellow-500" />
+            <StarIcon size={24} className="fill-yellow-500 text-yellow-500" />
+            <StarIcon size={24} className="fill-yellow-500 text-yellow-500" />
+            <StarIcon size={24} className="fill-yellow-500 text-yellow-500" />
           </div>
-          <p className="text-base text-gray-700 mt-6">{data.description}</p>
+          <p className="mt-6 text-base text-gray-700">{data.description}</p>
 
           <form action={addItemToShoppingCart} className="">
-          <SubmitButton text="Add to Cart" textPending="Adding to cart" variant="default"/>
+            <SubmitButton
+              text="Add to Cart"
+              textPending="Adding to cart"
+              variant="default"
+            />
           </form>
         </div>
       </div>

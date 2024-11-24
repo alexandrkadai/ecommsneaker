@@ -51,7 +51,7 @@ export function EditForm({ data }: iAppProps) {
   const [images, setImages] = useState<string[]>(data.images);
   const [lastResult, action] = useFormState(editProduct, undefined);
   const [form, fields] = useForm({
-    lastResult : lastResult as any, 
+    lastResult: lastResult as any,
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: productSchema });
     },
@@ -126,7 +126,11 @@ export function EditForm({ data }: iAppProps) {
             </div>
             <div className="flex flex-col gap-3">
               <Label>Status</Label>
-              <Select key={fields.status.key} name={fields.status.name} defaultValue={data.status}>
+              <Select
+                key={fields.status.key}
+                name={fields.status.name}
+                defaultValue={data.status}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
@@ -144,7 +148,8 @@ export function EditForm({ data }: iAppProps) {
               <Select
                 key={fields.category.key}
                 name={fields.category.name}
-                defaultValue={data.category}>
+                defaultValue={data.category}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select Category ... " />
                 </SelectTrigger>
@@ -171,19 +176,20 @@ export function EditForm({ data }: iAppProps) {
               {images.length > 0 ? (
                 <div className="flex gap-5">
                   {images.map((image, index) => (
-                    <div key={index} className="relative w-[100px] h-[100px]">
+                    <div key={index} className="relative h-[100px] w-[100px]">
                       <Image
                         height={100}
                         width={100}
                         src={image}
                         alt="uploaded image"
-                        className="w-full h-full rounded-lg border"
+                        className="h-full w-full rounded-lg border"
                       />
                       <button
                         onClick={() => handleDelete(index)}
                         type="button"
-                        className="absolute -top-3 -right-3 bg-red-500 p-2 rounded-lg text-white">
-                        <XIcon className="w-3 h-3" />
+                        className="absolute -right-3 -top-3 rounded-lg bg-red-500 p-2 text-white"
+                      >
+                        <XIcon className="h-3 w-3" />
                       </button>
                     </div>
                   ))}
@@ -205,7 +211,11 @@ export function EditForm({ data }: iAppProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <SubmitButton variant="default" text="Update Product"/>
+          <SubmitButton
+            variant="default"
+            text="Update Product"
+            textPending="Apliyng edition"
+          />
         </CardFooter>
       </Card>
     </form>
