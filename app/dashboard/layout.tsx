@@ -32,7 +32,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
         </nav>
         <Sheet>
           <SheetTrigger asChild>
-            <Button className=" shrink-0 md:hidden" variant="outline" size="icon">
+            <Button className="shrink-0 md:hidden" variant="outline" size="icon">
               <MenuIcon className="h-5 w-5" />
             </Button>
           </SheetTrigger>

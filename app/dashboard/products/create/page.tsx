@@ -35,6 +35,7 @@ import { SubmitButton } from '@/app/components/SubmitButton';
 const ProductCreateRoute = () => {
   const [images, setImages] = useState<string[]>([]);
   const [lastResult, action] = useFormState(createProduct, undefined);
+  
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {

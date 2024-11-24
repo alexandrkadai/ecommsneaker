@@ -5,6 +5,7 @@ import { useFormStatus } from 'react-dom';
 
 interface buttonProps {
   text: string;
+  textPending: string;
   variant:
     | 'default'
     | 'destructive'
@@ -16,35 +17,18 @@ interface buttonProps {
     | undefined;
 }
 
-export function SubmitButton({ text, variant }: buttonProps) {
+export function SubmitButton({ text, variant, textPending }: buttonProps) {
   const { pending } = useFormStatus();
   return (
     <>
       {pending ? (
         <Button disabled variant={variant}>
           <Loader2 className="mr-2 h-2 w-2 animate-spin" />
-          Please Wait ...
+          {textPending}
         </Button>
       ) : (
         <Button variant={variant} type="submit">
           {text}
-        </Button>
-      )}
-    </>
-  );
-}
-
-export function ShoppingBagButton() {
-  const { pending } = useFormStatus();
-  return (
-    <>
-      {pending ? (
-        <Button disabled size="lg" className="w-full mt-5 uppercase">
-          <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Adding to Cart ...
-        </Button>
-      ) : (
-        <Button size="lg" className="w-full mt-5">
-          <ShoppingBag className="mr-4 h-5 w-5 " /> Add to Cart
         </Button>
       )}
     </>
@@ -62,24 +46,6 @@ export function DeleteButton({ className }: { className: string }) {
         </button>
       ) : (
         <button className={className}>Delete</button>
-      )}
-    </>
-  );
-}
-
-export function CheckOutButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <>
-      {pending ? (
-        <Button disabled size="lg" className="w-full mt-5 uppercase">
-          <Loader2 className="mr-4 h-5 w-5 animate-spin" /> Processing Checkout...
-        </Button>
-      ) : (
-        <Button size="lg" className="w-full mt-5 uppercase">
-          <CreditCard className="mr-4 h-5 w-5 " /> ChekOut
-        </Button>
       )}
     </>
   );

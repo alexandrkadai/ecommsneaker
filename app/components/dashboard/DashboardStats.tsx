@@ -38,7 +38,7 @@ export default async function DashboardStats() {
   }, 0);
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 mf:gap-8 lg:grid-cols-4">
+    <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle>Total Revenue</CardTitle>

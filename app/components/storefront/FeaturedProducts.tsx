@@ -26,7 +26,7 @@ async function getData() {
 function FeaturedProducts() {
   return (
     <>
-      <h2 className="text-4xl uppercase font-bold">Featured Products</h2>
+      <h2 className="text-4xl font-bold uppercase">Featured Products</h2>
       <Suspense fallback={<LoadingRows />}>
         <LoadFeturedProducts />
       </Suspense>
@@ -40,7 +40,7 @@ async function LoadFeturedProducts() {
   noStore();
   const data = await getData();
   return (
-    <div className="mt-5 sm:grid sm:grid-cols-1 md:grid-cols-3 gap-5">
+    <div className="mt-5 gap-5 sm:grid sm:grid-cols-1 md:grid-cols-3">
       {data.map((item) => (
         <FeaturedCard key={item.id} item={item} />
       ))}
@@ -50,7 +50,7 @@ async function LoadFeturedProducts() {
 
 function LoadingRows() {
   return (
-    <div className="mt-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <LoadingFeatureCard />
       <LoadingFeatureCard />
       <LoadingFeatureCard />

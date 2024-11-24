@@ -1,7 +1,7 @@
 import { addItem } from '@/app/actions';
 import FeaturedProducts from '@/app/components/storefront/FeaturedProducts';
 import ImageSlider from '@/app/components/storefront/ImageSlider';
-import { ShoppingBagButton } from '@/app/components/SubmitButton';
+import { SubmitButton } from '@/app/components/SubmitButton';
 import prisma from '@/app/lib/db';
 import { StarIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
@@ -51,7 +51,7 @@ async function ProductPage({ params }: { params: { id: string } }) {
           <p className="text-base text-gray-700 mt-6">{data.description}</p>
 
           <form action={addItemToShoppingCart} className="">
-            <ShoppingBagButton />
+          <SubmitButton text="Add to Cart" textPending="Adding to cart" variant="default"/>
           </form>
         </div>
       </div>

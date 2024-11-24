@@ -30,7 +30,7 @@ function FeaturedCard({ item }: iAppProps) {
                   src={item}
                   alt="featured images"
                   fill
-                  className="object-cover object-center w-full h-full rounded-lg"
+                  className="h-full w-full rounded-lg object-cover object-center"
                 />
               </div>
             </CarouselItem>
@@ -39,34 +39,35 @@ function FeaturedCard({ item }: iAppProps) {
         <CarouselPrevious className="ml-16" />
         <CarouselNext className="mr-16" />
       </Carousel>
-      <div className=" flex justify-between items-center mb-2">
-        <h1 className="font-semibold text-3xl text-purple-500 uppercase tracking-tighter">
+      <div className="mb-2 flex items-center justify-between">
+        <h1 className="text-3xl font-semibold uppercase tracking-tighter text-purple-500">
           {item.name}
         </h1>
-        <h3 className="font-bold bg-primary/20 p-2 rounded-md text-primary ring-1 ring-primary mt-0.5">
+        <h3 className="mt-0.5 rounded-md bg-primary/20 p-2 font-bold text-primary ring-1 ring-primary">
           ${item.price}
         </h3>
       </div>
-      <Button asChild className="w-full mt-5">
-        <Link href={`/product/${item.id}`} className="uppercase font-bold tracking-wide">
-          Learn More
-        </Link>
-      </Button>
+      <Link
+        href={`/product/${item.id}`}
+        className="font-bold uppercase tracking-wide"
+      >
+        <Button className="mt-5 w-full">Learn More</Button>
+      </Link>
     </div>
   );
 }
 
 export default FeaturedCard;
 
-export function LoadingFeatureCard(){
-    return(
-        <div className="flex flex-col">
-            <Skeleton className='w-full h-[320px]'/>
-            <div className="flex flex-col mt-2 gap-y-2">
-                <Skeleton className='h-4 w-full'/>
-                <Skeleton className='h-6 w-full'/>
-            </div>
-            <Skeleton className='w-full h-10 mt-5' />
-        </div>
-    )
+export function LoadingFeatureCard() {
+  return (
+    <div className="flex flex-col">
+      <Skeleton className="h-[320px] w-full" />
+      <div className="mt-2 flex flex-col gap-y-2">
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-6 w-full" />
+      </div>
+      <Skeleton className="mt-5 h-10 w-full" />
+    </div>
+  );
 }

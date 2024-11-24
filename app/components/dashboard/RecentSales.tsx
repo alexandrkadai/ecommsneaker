@@ -38,7 +38,7 @@ export default async function RecentSales() {
             <Avatar className="hidden md:flex h-9 w-9">
               <Image  src={item.User?.profileImage as string} width={32} height={32} alt="Profile image of client"/>
             </Avatar>
-            <div className="grid gap-1 ">
+            <div className="grid gap-1">
               <p className="text-sm font-medium">{item.User?.firstName}</p>
               <p className="text-sm text-muted-foreground">{item.User?.email}</p>
             </div>

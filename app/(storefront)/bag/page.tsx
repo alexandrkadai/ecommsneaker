@@ -1,5 +1,5 @@
 import { checkOut, deleteItem } from '@/app/actions';
-import { CheckOutButton, DeleteButton } from '@/app/components/SubmitButton';
+import { DeleteButton, SubmitButton } from '@/app/components/SubmitButton';
 import { TCart } from '@/app/lib/interfaces';
 import { redis } from '@/app/lib/redis';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
@@ -71,7 +71,7 @@ export default async function BagRoute() {
               <p>${new Intl.NumberFormat('en-US').format(totalPrice)}</p>
             </div>
             <form action={checkOut}>
-            <CheckOutButton />
+            <SubmitButton text="ChekOut" textPending='Processing Checkout...' variant='default'/>
             </form>
           </div>
         </div>
