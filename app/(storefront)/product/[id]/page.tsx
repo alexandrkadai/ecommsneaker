@@ -55,6 +55,7 @@ async function ProductPage({ params }: { params: { id: string } }) {
               text="Add to Cart"
               textPending="Adding to cart"
               variant="default"
+              className="mt-2 w-full"
             />
           </form>
         </div>

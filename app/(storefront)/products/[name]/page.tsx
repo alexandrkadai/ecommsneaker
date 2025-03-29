@@ -1,7 +1,7 @@
 import FeaturedCard from '@/app/components/storefront/FeaturedCard';
 import prisma from '@/app/lib/db';
 import { notFound } from 'next/navigation';
-import {unstable_noStore as noStore} from 'next/cache';
+import { unstable_noStore as noStore } from 'next/cache';
 async function getData(productcategory: string) {
   switch (productcategory) {
     case 'all': {
@@ -13,7 +13,6 @@ async function getData(productcategory: string) {
           id: true,
           price: true,
         },
-       
       });
       return {
         title: 'All Products',
@@ -62,16 +61,20 @@ async function getData(productcategory: string) {
   }
 }
 
-export default async function CategoryPage({ params }: { params: { name: string } }) {
-    noStore();
+export default async function CategoryPage({
+  params,
+}: {
+  params: { name: string };
+}) {
+  noStore();
   const data = await getData(params.name);
 
   return (
     <section>
-      <h1 className="text-4xl font-bold tracking-tight my-5">{data.title}</h1>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
+      <h1 className="my-5 text-4xl font-bold tracking-tight">{data.title}</h1>
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {data.data.map((item) => (
-          <FeaturedCard item={item} key={item.id}/>
+          <FeaturedCard item={item} key={item.id} />
         ))}
       </div>
     </section>

@@ -1,5 +1,11 @@
 import prisma from '@/app/lib/db';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -8,7 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {unstable_noStore as noStore} from 'next/cache';
+import { unstable_noStore as noStore } from 'next/cache';
 
 async function getData() {
   const data = await prisma.order.findMany({
@@ -57,12 +63,18 @@ const Orders = async () => {
               <TableRow key={item.id}>
                 <TableCell>
                   <p className="font-medium">{item.User?.firstName}</p>
-                  <p className="hidden md:flex text-muted-foreground">{item.User?.email}</p>
+                  <p className="hidden text-muted-foreground md:flex">
+                    {item.User?.email}
+                  </p>
                 </TableCell>
                 <TableCell>Order</TableCell>
                 <TableCell>{item.status}</TableCell>
-                <TableCell>{new Intl.DateTimeFormat('en-US').format(item.createdAt)}</TableCell>
-                <TableCell className="text-right">$ {item.amount/100}</TableCell>
+                <TableCell>
+                  {new Intl.DateTimeFormat('en-US').format(item.createdAt)}
+                </TableCell>
+                <TableCell className="text-right">
+                  $ {item.amount / 100}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

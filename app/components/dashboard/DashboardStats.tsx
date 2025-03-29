@@ -1,6 +1,11 @@
 import prisma from '@/app/lib/db';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { DollarSignIcon, PartyPopperIcon, ShoppingBagIcon, User2Icon } from 'lucide-react';
+import {
+  DollarSignIcon,
+  PartyPopperIcon,
+  ShoppingBagIcon,
+  User2Icon,
+} from 'lucide-react';
 
 async function getData() {
   const [user, products, order] = await Promise.all([
@@ -42,11 +47,13 @@ export default async function DashboardStats() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle>Total Revenue</CardTitle>
-          <DollarSignIcon className="w-5 h-5 text-green-500 -translate-y-[3px]" />
+          <DollarSignIcon className="h-5 w-5 -translate-y-[3px] text-green-500" />
         </CardHeader>
         <CardContent>
           <p className="text-xl font-bold">$ {totalAmount / 100}</p>
-          <p className="text-xs text-muted-foreground">Based on {order.length} charge(s)</p>
+          <p className="text-xs text-muted-foreground">
+            Based on {order.length} charge(s)
+          </p>
         </CardContent>
       </Card>
       <Card>
@@ -61,22 +68,26 @@ export default async function DashboardStats() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle>Total Products</CardTitle>
-          <ShoppingBagIcon className="w-5 h-5 text-blue-500 -translate-y-[3px]" />
+          <ShoppingBagIcon className="h-5 w-5 -translate-y-[3px] text-blue-500" />
         </CardHeader>
         <CardContent>
           <p className="text-xl font-bold">{products.length}</p>
-          <p className="text-xs text-muted-foreground">Total products created</p>
+          <p className="text-xs text-muted-foreground">
+            Total products created
+          </p>
         </CardContent>
       </Card>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle>Total Users</CardTitle>
-          <User2Icon className="w-5 h-5 text-orange-500 -translate-y-[3px]" />
-          <PartyPopperIcon className="w-5 h-5 text-purple-500 -translate-y-[3px]" />
+          <User2Icon className="h-5 w-5 -translate-y-[3px] text-orange-500" />
+          <PartyPopperIcon className="h-5 w-5 -translate-y-[3px] text-purple-500" />
         </CardHeader>
         <CardContent>
           <p className="text-xl font-bold">{user.length}</p>
-          <p className="text-xs text-muted-foreground">Total user registered </p>
+          <p className="text-xs text-muted-foreground">
+            Total user registered{' '}
+          </p>
         </CardContent>
       </Card>
     </div>

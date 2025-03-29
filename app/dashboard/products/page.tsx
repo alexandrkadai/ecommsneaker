@@ -1,6 +1,12 @@
 import prisma from '@/app/lib/db';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,10 +23,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { MoreHorizontal, PlusCircleIcon} from 'lucide-react';
+import { MoreHorizontal, PlusCircleIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {unstable_noStore as noStore} from 'next/cache';
+import { unstable_noStore as noStore } from 'next/cache';
 
 async function getData() {
   const data = await prisma.product.findMany({
@@ -47,7 +53,9 @@ const Products = async () => {
       <Card className="mt-5">
         <CardHeader>
           <CardTitle>Products</CardTitle>
-          <CardDescription>Manage Your Products and view their perfomance</CardDescription>
+          <CardDescription>
+            Manage Your Products and view their perfomance
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
@@ -69,14 +77,16 @@ const Products = async () => {
                       src={item.images[0]}
                       height={64}
                       width={64}
-                      className="rounded-md object-cover h-16 w-16 "
+                      className="h-16 w-16 rounded-md object-cover"
                       alt="product image"
                     />
                   </TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.status}</TableCell>
                   <TableCell>{item.price}</TableCell>
-                  <TableCell>{new Intl.DateTimeFormat('en-US').format(item.createdAt)}</TableCell>
+                  <TableCell>
+                    {new Intl.DateTimeFormat('en-US').format(item.createdAt)}
+                  </TableCell>
                   <TableCell className="text-end">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -88,10 +98,14 @@ const Products = async () => {
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem asChild>
-                          <Link href={`/dashboard/products/${item.id}`}>Edit</Link>
+                          <Link href={`/dashboard/products/${item.id}`}>
+                            Edit
+                          </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                          <Link href={`/dashboard/products/${item.id}/delete`}>Delete</Link>
+                          <Link href={`/dashboard/products/${item.id}/delete`}>
+                            Delete
+                          </Link>
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

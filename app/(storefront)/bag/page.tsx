@@ -79,7 +79,7 @@ export default async function BagRoute() {
                 text="ChekOut"
                 textPending="Processing Checkout..."
                 variant="default"
-                className='w-full'
+                className="w-full"
               />
             </form>
           </div>

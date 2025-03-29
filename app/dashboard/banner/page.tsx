@@ -1,6 +1,12 @@
 import prisma from '@/app/lib/db';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -67,7 +73,7 @@ export default async function Banner() {
                       width={200}
                       height={200}
                       alt="banner image"
-                      className="w-[200px] h-[200px] rounded-lg object-contain"
+                      className="h-[200px] w-[200px] rounded-lg object-contain"
                     />
                   </TableCell>
                   <TableCell className="font-medium">{item.title}</TableCell>
@@ -82,7 +88,9 @@ export default async function Banner() {
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem asChild>
-                          <Link href={`/dashboard/banner/${item.id}/delete`}>Delete</Link>
+                          <Link href={`/dashboard/banner/${item.id}/delete`}>
+                            Delete
+                          </Link>
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

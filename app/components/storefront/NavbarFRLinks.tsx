@@ -29,15 +29,18 @@ export const NavbarLinksFR = [
 export default function NavbarFRLinks() {
   const location = usePathname();
   return (
-    <div className="hidden md:flex justify-center items-center gap-x-5 ml-8">
+    <div className="ml-8 hidden items-center justify-center gap-x-5 md:flex">
       {NavbarLinksFR.map((item) => (
         <Link
           href={item.href}
           key={item.id}
           className={cn(
-            location === item.href ? 'text-black' : 'text-gray-400 hover:text-black',
+            location === item.href
+              ? 'text-black'
+              : 'text-gray-400 hover:text-black',
             'font-medium uppercase transition-transform hover:scale-110',
-          )}>
+          )}
+        >
           {item.name}
         </Link>
       ))}

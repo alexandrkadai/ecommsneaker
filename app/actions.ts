@@ -28,7 +28,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
   const flattenUrls = submission.value.images.flatMap((urlString) =>
     urlString.split(',').map((url) => url.trim()),
   );
-  
+
   await prisma.product.create({
     data: {
       name: submission.value.name,
@@ -226,17 +226,18 @@ export async function checkOut() {
   const cart: TCart | null = await redis.get(`cart-${user.id}`);
 
   if (cart && cart.items) {
-    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = cart.items.map((item) => ({
-      price_data: {
-        currency: 'usd',
-        unit_amount: item.price * 100,
-        product_data: {
-          name: item.name,
-          images: [item.imageString],
+    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] =
+      cart.items.map((item) => ({
+        price_data: {
+          currency: 'usd',
+          unit_amount: item.price * 100,
+          product_data: {
+            name: item.name,
+            images: [item.imageString],
+          },
         },
-      },
-      quantity: item.quantity,
-    }));
+        quantity: item.quantity,
+      }));
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',

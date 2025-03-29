@@ -12,11 +12,15 @@ const ImageSlider = ({ images }: iAppProps) => {
   const [mainImageIndex, setMainImageIndex] = useState(0);
 
   function handlePreviousClick() {
-    setMainImageIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+    setMainImageIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1,
+    );
   }
 
   function handleNextClick() {
-    setMainImageIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    setMainImageIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1,
+    );
   }
 
   function handleImageClick(index: number) {
@@ -24,16 +28,16 @@ const ImageSlider = ({ images }: iAppProps) => {
   }
 
   return (
-    <div className="grid gap-6 md:gap-3 items-start">
-      <div className="relative overflow-hidden rounded-lg ">
+    <div className="grid items-start gap-6 md:gap-3">
+      <div className="relative overflow-hidden rounded-lg">
         <Image
           src={images[mainImageIndex]}
           alt="Product Image"
           width={600}
           height={600}
-          className="object-cover w-[600px] h-[600px]"
+          className="h-[600px] w-[600px] object-cover"
         />
-        <div className="absolute inset-0 h-[600px] flex items-center justify-between px-4">
+        <div className="absolute inset-0 flex h-[600px] items-center justify-between px-4">
           <Button onClick={handlePreviousClick} size="icon">
             <ChevronLeft size={16} />
           </Button>
@@ -44,15 +48,21 @@ const ImageSlider = ({ images }: iAppProps) => {
         <div className="grid grid-cols-5 gap-4">
           {images.map((item, index) => (
             <div
-              className={cn(index === mainImageIndex ? "border-2 border-primary" : "border border-gray-200", "rounded-lg cursor-pointer overflow-hidden")}
+              className={cn(
+                index === mainImageIndex
+                  ? 'border-2 border-primary'
+                  : 'border border-gray-200',
+                'cursor-pointer overflow-hidden rounded-lg',
+              )}
               key={index}
-              onClick={() => handleImageClick(index)} >
+              onClick={() => handleImageClick(index)}
+            >
               <Image
                 src={item}
                 alt="Product Image"
                 width={150}
                 height={150}
-                className="object-cover w-[150px] h-[150px] "
+                className="h-[150px] w-[150px] object-cover"
               />
             </div>
           ))}

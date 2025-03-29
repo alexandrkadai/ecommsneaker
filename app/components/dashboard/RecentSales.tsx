@@ -32,17 +32,24 @@ export default async function RecentSales() {
       <CardHeader>
         <CardTitle>Recent Sales</CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col gap-8 ">
+      <CardContent className="flex flex-col gap-8">
         {order.map((item) => (
           <div className="flex items-center gap-4" key={item.id}>
-            <Avatar className="hidden md:flex h-9 w-9">
-              <Image  src={item.User?.profileImage as string} width={32} height={32} alt="Profile image of client"/>
+            <Avatar className="hidden h-9 w-9 md:flex">
+              <Image
+                src={item.User?.profileImage as string}
+                width={32}
+                height={32}
+                alt="Profile image of client"
+              />
             </Avatar>
             <div className="grid gap-1">
               <p className="text-sm font-medium">{item.User?.firstName}</p>
-              <p className="text-sm text-muted-foreground">{item.User?.email}</p>
+              <p className="text-sm text-muted-foreground">
+                {item.User?.email}
+              </p>
             </div>
-            <p className="ml-auto font-medium"> $ {item.amount / 100 }</p>
+            <p className="ml-auto font-medium"> $ {item.amount / 100}</p>
           </div>
         ))}
       </CardContent>

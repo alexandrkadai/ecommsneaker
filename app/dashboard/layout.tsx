@@ -11,9 +11,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { getKindeServerSession, LogoutLink } from '@kinde-oss/kinde-auth-nextjs/server';
+import {
+  getKindeServerSession,
+  LogoutLink,
+} from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
-import {unstable_noStore as noStore} from 'next/cache';
+import { unstable_noStore as noStore } from 'next/cache';
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   noStore();
@@ -25,19 +28,23 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <div className="flex w-full flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto flex w-full max-w-7xl flex-col px-4 sm:px-6 lg:px-8">
       <header className="sticky top-0 flex h-16 items-center justify-between gap-4 border-b bg-white">
-        <nav className="hidden font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 ">
+        <nav className="hidden font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
           <DashboardNavigation />
         </nav>
         <Sheet>
           <SheetTrigger asChild>
-            <Button className="shrink-0 md:hidden" variant="outline" size="icon">
+            <Button
+              className="shrink-0 md:hidden"
+              variant="outline"
+              size="icon"
+            >
               <MenuIcon className="h-5 w-5" />
             </Button>
           </SheetTrigger>
           <SheetContent side="left">
-            <nav className="grid gap-6 text-lg font-medium mt-5">
+            <nav className="mt-5 grid gap-6 text-lg font-medium">
               <DashboardNavigation />
             </nav>
           </SheetContent>
@@ -45,7 +52,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
-              <CircleUser className="w-5 h-5" />
+              <CircleUser className="h-5 w-5" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -57,9 +64,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
           </DropdownMenuContent>
         </DropdownMenu>
       </header>
-      <main className='my-5'>
-      {children}
-      </main>
+      <main className="my-5">{children}</main>
     </div>
   );
 };

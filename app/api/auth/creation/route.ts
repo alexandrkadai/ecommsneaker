@@ -24,13 +24,14 @@ export async function GET() {
         firstName: user.given_name ?? '',
         lastName: user.family_name ?? '',
         email: user.email ?? '',
-        profileImage: user.picture ?? `https://avatar.vercel.sh/${user.given_name}`,
+        profileImage:
+          user.picture ?? `https://avatar.vercel.sh/${user.given_name}`,
       },
     });
   }
   return NextResponse.redirect(
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : 'https://ecommsneaker.vercel.app'
+      : 'https://ecommsneaker.vercel.app',
   );
 }

@@ -20,9 +20,10 @@ const DashboardNavigation = () => {
           href={link.href}
           className={cn(
             link.href === pathName
-              ? 'text-black font-bold'
+              ? 'font-bold text-black'
               : 'text-muted-foreground hover:text-foreground',
-          )}>
+          )}
+        >
           {link.name}
         </Link>
       ))}

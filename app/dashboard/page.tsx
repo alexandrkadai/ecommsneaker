@@ -1,12 +1,17 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import DashboardStats from '../components/dashboard/DashboardStats';
 import RecentSales from '../components/dashboard/RecentSales';
 import Chart from '../components/dashboard/Chart';
 import prisma from '../lib/db';
-import {unstable_noStore as noStore} from 'next/cache';
+import { unstable_noStore as noStore } from 'next/cache';
 
 async function getData() {
-  
   const now = new Date();
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(now.getDate() - 7);
@@ -39,7 +44,7 @@ const Dashboard = async () => {
   return (
     <>
       <DashboardStats />
-      <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3 mt-10">
+      <div className="mt-10 grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
         <Card className="xl:col-span-2">
           <CardHeader>
             <CardTitle>Transactions</CardTitle>
